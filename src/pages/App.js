@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import gitLogo from '../assets/github.png';
 import Input from '../components/Input';
 import Button from '../components/Button';
@@ -11,13 +11,28 @@ function App() {
   const [currentRepo, setCurrentRepo] = useState('');
   const [repos, setRepos] = useState([]);
 
+  // Carregar repositórios do Local Storage ao carregar a aplicação
+  useEffect(() => {
+    const savedRepos = JSON.parse(localStorage.getItem('repos'));
+    if (savedRepos) {
+      setRepos(savedRepos);
+    }
+  }, []);
+
+  // Função para salvar repositórios no Local Storage
+  const saveReposToLocalStorage = (repos) => {
+    localStorage.setItem('repos', JSON.stringify(repos));
+  };
+
   const handleSearchRepo = async () => {
     try {
       const { data } = await api.get(`repos/${currentRepo}`);
       if (data.id) {
         const isExist = repos.find(repo => repo.id === data.id);
         if (!isExist) {
-          setRepos(prev => [...prev, data]);
+          const newRepos = [...repos, data];
+          setRepos(newRepos);
+          saveReposToLocalStorage(newRepos); // Salva no Local Storage
           setCurrentRepo('');
           return;
         }
@@ -31,7 +46,9 @@ function App() {
   };
 
   const handleRemoveRepo = (id) => {
-    setRepos(prevRepos => prevRepos.filter(repo => repo.id !== id));
+    const updatedRepos = repos.filter(repo => repo.id !== id);
+    setRepos(updatedRepos);
+    saveReposToLocalStorage(updatedRepos); // Salva no Local Storage após remoção
   };
 
   return (
