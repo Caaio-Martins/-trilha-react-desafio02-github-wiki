@@ -17,11 +17,8 @@ Este é um projeto simples desenvolvido para buscar e listar repositórios do Gi
 - **Remover Repositórios**: O usuário pode remover repositórios da lista.
 - **Exibição dos Repositórios**: O nome e o link para o repositório são exibidos.
 
-## Como Executar o Projeto
+## Como Usar
 
-### 1. Clone o Repositório
-
-Clone este repositório para sua máquina local:
-
-```bash
-git clone https://github.com/seu-usuario/desafio-github-wiki.git
+1. Adicionar Repositório: No campo de entrada, digite o nome de um repositório GitHub (ex: facebook/react) e clique no botão para buscar o repositório.
+2. Visualizar Repositórios: Os repositórios adicionados serão listados com o nome e o link para o repositório no GitHub.
+3. Remover Repositório: Para remover um repositório da lista, clique no botão "Remover" ao lado do repositório desejado.
